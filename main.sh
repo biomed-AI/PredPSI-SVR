@@ -24,8 +24,8 @@ while [ -n "$1" ]; do
     shift
 done
 
-if [ -z $vcf ] || [ ! -f $vcf ] || [ ! -f $PSI ]; then
-    echo "usage: $0 vcf [-p PSI(wild type)] [-e exon_list] [-t transcript_list] [-o outdir]"
+if [ -z $vcf ] || [ ! -f $vcf ] || [ ! -f $exon_list ] || [ ! -f $transcript_list ] || [ ! -f $PSI ]; then
+    echo "usage: $0 VCF [-p PSI(wild type)] [-e exon_list] [-t transcript_list] [-o outdir]"
     exit 1
 fi
 
