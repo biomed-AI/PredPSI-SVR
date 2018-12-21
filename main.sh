@@ -24,10 +24,8 @@ while [ -n "$1" ]; do
     shift
 done
 
-echo "pwd: $cwd vcf:$vcf outdir: $outdir PSI: $PSI"
-
 if [ -z $vcf ] || [ ! -f $vcf ] || [ ! -f $PSI ]; then
-    echo "usage: $0 vcf -p PSI(wild type) [-e exon_list | -t transcript_list] -o outdir"
+    echo "usage: $0 vcf [-p PSI(wild type)] [-e exon_list] [-t transcript_list] [-o outdir]"
     exit 1
 fi
 
