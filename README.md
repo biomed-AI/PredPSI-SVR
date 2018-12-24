@@ -10,9 +10,9 @@ You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://to
 - Python 3  
     - Numpy package installed
 - Perl
-- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm  
+- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm, LIBSVM can be installed using linux package manager on Ubuntu, Debian, etc.  
 - ANNOVAR: http://annovar.openbioinformatics.org/en/latest  
-- Samtools: install http://www.htslib.org  
+- Samtools: http://www.htslib.org. Samtools can also be installed with linux package manager.  
 
 ## Setup
 1. Download and install LIBSVM, ANNOVAR and samtools  
