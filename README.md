@@ -1,5 +1,9 @@
 # SVR-DPSI
 
+This tool was designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations.  
+You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://tools.genes.toronto.edu)
+
+
 ## Prerequisites
 - OS: Linux  
 - Python 2  
