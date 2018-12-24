@@ -51,9 +51,10 @@ input_vcf="$working/input.vcf"
 grep -v '^#' $vcf | cut -f 1-5 | awk '{print $0"\t.\t.\t."}' > "$working/input.vcf"
 
 input_avinput="$working/input.avinput"
+echo "** ANNOVAR annotating......"
 perl $convert2annovar -format vcf4 $input_vcf > $input_avinput
-
 perl $annotate_variation -buildver $buildver -dbtype ensGene $input_avinput $humandb -out $working/annovar
+echo "    DONE"
 # output: variant_function
 
 
@@ -85,6 +86,8 @@ else
 fi
 
 grep -v "NAN" $mut_info > "${mut_info}.valid"
+paste "$working/input.vcf" $mut_info | grep -v "NAN" | cut -f 1-5  > "$working/input.valid.vcf"
+ 
 if [ -n "$PSI" ]; then
     tmp_psi=$(mktemp -p $working psi_XXXXXX)
     grep -v '#' $PSI > $tmp_psi
@@ -99,14 +102,14 @@ fi
 echo "** Extracting sequence...... "
 input_seq_fa="$working/input.seq_fa"
 python $TOOL_PATH/src/mark_seq.py "${mut_info}.valid" > $input_seq_fa || exit 1
-echo "   DONE"
+echo "    DONE"
 
 ## Prepare features
 echo "** Preparing features"
 # MaxEntScan
 echo "  - MaxEntScan... "
 python $TOOL_PATH/src/maxent_score.py $input_seq_fa > $working/maxent
-echo "   DONE"
+echo "    DONE"
 
 # Exonic Splicing Enhancer
 echo "  - ESE... "
@@ -114,16 +117,17 @@ cd $TOOL_PATH/tools/ese3
 # echo "PWD1: $(pwd), PWD: $cwd"
 python2 $TOOL_PATH/tools/ese3/ese3_mod.py -q $input_seq_fa > $working/ese
 cd $cwd
-echo "   DONE"
+echo "    DONE"
 # echo "PWD2: $(pwd), PWD: $cwd"
 
 # spidex
 echo "  - SPIDEX... "
+echo "    using ANNOVAR..."
 awk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t.\t.\t."}' ${mut_info}.valid > $working/input.valid.avinput
 perl $table_annovar $working/input.valid.avinput $humandb -buildver hg19 -out $working/spidex -remove -protocol spidex -operation f -nastring na -csvout -polish
 printf "#" > $working/spidex
 cut -d ',' -f 6 $working/spidex.hg19_multianno.csv >> $working/spidex 
-echo "   DONE"
+echo "    DONE"
 
 ## Prepare features: tag-features.tsv
 echo "** Merging features...... "
@@ -132,17 +136,11 @@ paste $working/maxent $working/spidex $working/ese $PSI | head -n 1 >> $working/
 paste $working/maxent $working/spidex $working/ese $PSI | grep -v "#" | awk '{print 0"\t"$0}' | sed 's/na/0/g' >> $working/tag-features.tsv
 
 python3 $TOOL_PATH/src/SVM-make-data.py $working/tag-features.tsv > $working/tag-features.svm
-echo "   DONE"
+echo "    DONE"
 
 #
-export svm_scale=$TOOL_PATH/tools/libsvm-3.23/svm-scale
-export svm_predict=$TOOL_PATH/tools/libsvm-3.23/svm-predict
-
-chmod +x $svm_scale $svm_predict
-# model: PSI/NOPSI
-# scale.paras
-# PSI.feature/NOPSI.feature
-# PSI.model/NOPSI.model
+#export svm_scale=$TOOL_PATH/tools/libsvm-3.23/svm-scale
+#export svm_predict=$TOOL_PATH/tools/libsvm-3.23/svm-predict
 
 ## SVM: scaling
 echo "** SVM...... "
@@ -163,8 +161,9 @@ $svm_predict $working/tag-features.scaled.select.svm $model $working/out-predict
 
 cut -f 1 $working/out-prediction.raw > $working/out.dpsi.raw
 
-python3 $TOOL_PATH/src/SVR-rescale.py -s $TOOL_PATH/models/scale.paras $working/out.dpsi.raw > $working/OUTPUT.dpsi 
-echo "   DONE"
+printf "#Chrom\tPosition\tID\tRef\tAlt\tdelta-PSI\n" > $working/OUTPUT.dpsi
+python3 $TOOL_PATH/src/SVR-rescale.py -s $TOOL_PATH/models/scale.paras $working/out.dpsi.raw | paste $working/input.valid.vcf - >> $working/OUTPUT.dpsi 
+echo "    DONE"
 
 ## clean
 test -d $working/others || mkdir $working/others

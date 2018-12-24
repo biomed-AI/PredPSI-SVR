@@ -10,3 +10,5 @@ export samtools="/usr/bin/samtools"
 export hg19_genome="$HOME/Data/reference/ucsc.hg19/ucsc.hg19.fasta"
 export hg19_ensGene="$HOME/Data/annovar/humandb/hg19_ensGene.txt"
 
+export svm_scale="svm-scale"
+export svm_predict="svm-predict"
