@@ -31,7 +31,8 @@
 4. Edit paths in src/init.sh file to match the path to files or programs on your computer.  
 
 ## Usage  
-    Example:
-    ```
-    ./main.sh example/sample.vcf -p example sample.psi -o example/outdir
-    ```
+Example  
+
+```shell
+./main.sh example/sample.vcf -p example sample.psi -o example/outdir
+```
