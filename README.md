@@ -1,24 +1,37 @@
 # SVR-DPSI
 
-## Requirements  
+## Prerequisites
 - OS: Linux  
-- Python environment:  
-    - Python 2
-    - Python 3 & Numpy
+- Python 2  
+- Python 3  
+    - Numpy package installed
 - Perl
+- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm  
+- ANNOVAR: http://annovar.openbioinformatics.org/en/latest  
+- Samtools: install http://www.htslib.org  
 
-## Other Tools Involved  
-- [LIBSVM](https://www.csie.ntu.edu.tw/~cjlin/libsvm/)  
-- [ANNOVAR](http://annovar.openbioinformatics.org/en/latest/)  
-- [Samtools](http://www.htslib.org/)  
-
-## Preparation before Using
+## Setup
 1. Download and install LIBSVM, ANNOVAR and samtools  
-2. Download data needed  
-    - hg19 reference genome  
+2. Data preparation
+    - hg19 reference genome:  
+        ```shell
+        wget -c http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
+        tar -xzvf chromFa.tar.gz
+        cat *.fa > hg19.fasta 
+        samtools index hg19.fasta
+        ```
     - Annovar databases:  
-        - SPIDEX
-        - hg19_ensGene
-3. Index the reference genome  
-    `$ samtools index /path/to/hg19/genome.fasta` (This step takes about 1 hour at least)
-4. Edit paths in src/init.sh file to match your computer's settings
+        - hg19_ensGene  
+        ```
+        annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene /path/to/humandb/
+        ```
+        - SPIDEX  
+        http://www.openbioinformatics.org/annovar/spidex_download_form.php  
+        This database should also be put in `/path/to/humandb`
+4. Edit paths in src/init.sh file to match the path to files or programs on your computer.  
+
+## Usage  
+    Example:
+    ```
+    ./main.sh example/sample.vcf -p example sample.psi -o example/outdir
+    ```
