@@ -32,7 +32,7 @@ You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://to
         - SPIDEX  
         http://www.openbioinformatics.org/annovar/spidex_download_form.php  
         This database should also be put in `/path/to/humandb`
-4. Edit paths in src/init.sh file to match the path to files or programs on your computer.  
+4. Edit paths in `src/init.sh` file to match the path to files or programs on your computer.  
 
 ## Usage  
 Example  
