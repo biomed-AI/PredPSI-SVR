@@ -10,9 +10,16 @@ You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://to
 - Python 3  
     - Numpy package installed
 - Perl
-- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm, LIBSVM can be installed using linux package manager on Ubuntu, Debian, etc.  
 - ANNOVAR: http://annovar.openbioinformatics.org/en/latest  
-- Samtools: http://www.htslib.org. Samtools can also be installed with linux package manager.  
+- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm
+- Samtools: http://www.htslib.org  
+
+LIBSVM and samtools can be installed with the package manager:  
+```
+sudo apt install libsvm-tools samtools # Debian/Ubuntu
+```
+
+
 
 ## Setup
 1. Download and install LIBSVM, ANNOVAR and samtools  
@@ -25,18 +32,19 @@ You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://to
         samtools index hg19.fasta
         ```
     - Annovar databases:  
+        `humandb` is the data folder of annovar, the default path is `annovar/humandb`
         - hg19_ensGene  
         ```
-        annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene /path/to/humandb/
+        ./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene ./humandb/
         ```
         - SPIDEX  
         http://www.openbioinformatics.org/annovar/spidex_download_form.php  
-        This database should also be put in `/path/to/humandb`
-4. Edit paths in `src/init.sh` file to match the path to files or programs on your computer.  
+        This database should also be put in `humandb`
+4. Edit paths in `src/init.sh` to match the path to files or programs on your computer.  
 
 ## Usage  
-Example  
+Example:  
 
 ```shell
-./main.sh example/sample.vcf -p example sample.psi -o example/outdir
+./main.sh example/sample.vcf -p example/sample.psi -o example/outdir
 ```

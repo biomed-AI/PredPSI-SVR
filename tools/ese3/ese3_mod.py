@@ -7,11 +7,11 @@ Sequences should be at least 15 nucleotides long, with 7 bases 5',
 the mutated nucleotide: [OLD/NEW], and 7 bases 3'. For example:
 AAGAGGT[C/G]TCGTTTACGGAGG. Suggested input is the full exon.
 """
+## SilVA package: http://compbio.cs.toronto.edu/silva
+## Publication: Buske,O.J. et al. (2013) Identification of deleterious synonymous variants in human genomes. Bioinformatics, 29, 1843–1850.
 
 # Author: Orion Buske
 # Date:   27 December 2011
-# Publication: 
-
 from __future__ import division, with_statement
 
 import os

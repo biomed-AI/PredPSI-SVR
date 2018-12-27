@@ -1,3 +1,8 @@
+
+
+## SilVA package: http://compbio.cs.toronto.edu/silva
+## Publication: Buske,O.J. et al. (2013) Identification of deleterious synonymous variants in human genomes. Bioinformatics, 29, 1843–1850.
+
 from __future__ import with_statement, division
 
 import sys

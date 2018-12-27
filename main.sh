@@ -46,7 +46,7 @@ else
     source $TOOL_PATH/src/init.sh
 fi
 
-# # preprocess
+## preprocess
 input_vcf="$working/input.vcf"
 grep -v '^#' $vcf | cut -f 1-5 | awk '{print $0"\t.\t.\t."}' > "$working/input.vcf"
 
@@ -55,7 +55,7 @@ echo "** ANNOVAR annotating......"
 perl $convert2annovar -format vcf4 $input_vcf > $input_avinput
 perl $annotate_variation -buildver $buildver -dbtype ensGene $input_avinput $humandb -out $working/annovar
 echo "    DONE"
-# output: variant_function
+## output: variant_function
 
 
 ## prepare mut_info: 
@@ -146,7 +146,6 @@ echo "    DONE"
 echo "** SVM...... "
 $svm_scale -r $TOOL_PATH/models/scale.paras  $working/tag-features.svm > $working/tag-features.scaled.svm
 
-
 if [ -n "$PSI" ]; then
     model=$TOOL_PATH/models/PSI.model
     feature=$TOOL_PATH/models/PSI.feature
@@ -156,8 +155,7 @@ else
 fi
 python3 $TOOL_PATH/src/SVM-select.py -f $feature $working/tag-features.scaled.svm > $working/tag-features.scaled.select.svm
 
-$svm_predict $working/tag-features.scaled.select.svm $model $working/out-prediction.raw 2>&1 $working/svm.log
-
+$svm_predict $working/tag-features.scaled.select.svm $model $working/out-prediction.raw
 
 cut -f 1 $working/out-prediction.raw > $working/out.dpsi.raw
 
