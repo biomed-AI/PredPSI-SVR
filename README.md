@@ -48,4 +48,4 @@ Example:
 ```shell
 ./main.sh example/sample.vcf -p example/sample.psi -o example/outdir
 ```
-Result file is `example/OUTPUT.dpsi`
+Result file is `example/outdir/OUTPUT.dpsi`
