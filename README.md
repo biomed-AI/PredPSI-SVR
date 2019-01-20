@@ -1,4 +1,4 @@
-# SVR-DPSI
+# PredPSI-SVR
 
 This tool was designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations.  
 You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://tools.genes.toronto.edu)
@@ -49,3 +49,7 @@ Example:
 ./main.sh example/sample.vcf -p example/sample.psi -o example/outdir
 ```
 Result file is `example/outdir/OUTPUT.dpsi`
+
+## Notes
+
+`tools/ese3/ese3_mod.py` is modified according to a script in [SilVA](http://compbio.cs.toronto.edu/silva/) tool
