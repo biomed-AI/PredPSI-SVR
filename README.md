@@ -52,4 +52,4 @@ Result file is `example/outdir/OUTPUT.dpsi`
 
 ## Notes
 
-`tools/ese3/ese3_mod.py` is modified according to a script in [SilVA](http://compbio.cs.toronto.edu/silva/) tool
+`tools/ese3/ese3_mod.py` is modified based a script in [SilVA](http://compbio.cs.toronto.edu/silva/) tool
