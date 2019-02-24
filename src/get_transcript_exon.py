@@ -2,7 +2,7 @@
 
 import sys, os
 
-if "TOO_PATH" in os.environ:
+if "TOOL_PATH" in os.environ:
     TOOL_PATH = os.environ['TOOL_PATH']
 else:
     TOOL_PATH = "./"
