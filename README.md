@@ -29,7 +29,7 @@ sudo apt install libsvm-tools samtools # Debian/Ubuntu
         wget -c http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
         tar -xzvf chromFa.tar.gz
         cat *.fa > hg19.fasta 
-        samtools index hg19.fasta
+        samtools faidx hg19.fasta
         ```
     - Annovar databases:  
         `humandb` is the data folder of annovar, the default path is `annovar/humandb`
