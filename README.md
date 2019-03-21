@@ -1,14 +1,13 @@
 # PredPSI-SVR
 
-This tool was designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations.  
-You can give it VCF files and it will give a $\Delta\Psi$ like [SPANR](http://tools.genes.toronto.edu)
+This tool was originally designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations for [CAGI 5 vex-seq](https://genomeinterpretation.org/content/vex-seq) challenge  
+You can use it to predict $\Delta\Psi$ like [SPANR](http://tools.genes.toronto.edu) caused by mutations in [VCF](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format (Only the first 5 columns are required).  
 
 
 ## Prerequisites
 - OS: Linux  
 - Python 2  
-- Python 3  
-    - Numpy package installed
+- Python 3 (with `numpy` package installed)
 - Perl
 - ANNOVAR: http://annovar.openbioinformatics.org/en/latest  
 - LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm
