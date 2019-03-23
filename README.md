@@ -1,7 +1,6 @@
 # PredPSI-SVR
 
-This tool was originally designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations for [CAGI 5 vex-seq](https://genomeinterpretation.org/content/vex-seq) challenge  
-You can use it to predict $\Delta\Psi$ like [SPANR](http://tools.genes.toronto.edu) caused by mutations in [VCF](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) format (Only the first 5 columns are required).  
+`PredPSI-SVR` was originally designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations for [CAGI 5 vex-seq](https://genomeinterp,etation.org/content/vex-seq) challenge). It can be used to predict PSI change (<img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" >delta PSI</img>)
 
 
 ## Prerequisites
