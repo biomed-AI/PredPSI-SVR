@@ -1,28 +1,35 @@
 #!/bin/bash
-## -------------------------------------------------------------- ##
-## You should edit this file to make variables and aliases match
-## configurations on your device
-## -------------------------------------------------------------- ##
 
-# ANNOVAR
-export annovar="$HOME/Tools/annovar"
-export humandb="$HOME/Data/annovar/humandb"
+
+## ---------------------------------  python --------------------------------------- #
+## Both python 2 and python 3 are required, 
+export python3="$HOME/miniconda3/bin/python3"
+export python2="/usr/bin/python2"
+
+
+## ---------------------------- ANNOVAR configuration ------------------------------ #
+# You should edit the following variables to match path on your computer
+export annovar="$HOME/PredPSI-SVR/tools/annovar"
+export humandb="${annovar}/humandb"
+# If you have configured the annovar and humandb path correctly, you don't need 
+# to editfollowing variables
 export annotate_variation="$annovar/annotate_variation.pl"
 export convert2annovar="$annovar/convert2annovar.pl"
 export table_annovar="$annovar/table_annovar.pl"
-export hg19_ensGene="$HOME/Data/annovar/humandb/hg19_ensGene.txt"
+export hg19_ensGene="$humandb/hg19_ensGene.txt"
 
-# python
-alias python3='/usr/bin/env python3'
-alias python2='/usr/bin/env python2'
 
-# samtools
+## ----------------------------------- samtools ------------------------------------ #
+# If samtools was not in your system PATH, you need to edit the following 
+# variable manually to set the path to samtools
 export samtools="/usr/bin/samtools"
 
-# LIBSVM
 
-export svm_scale="/home/chenken/tmp/test_PredPSI-SVR_repo/libsvm-3.23/svm-scale"
-export svm_predict="/home/chenken/tmp/test_PredPSI-SVR_repo/libsvm-3.23/svm-predict"
+## ------------------------------------ LIBSVM ------------------------------------- #
+export svm_scale="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-scale"
+export svm_predict="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-predict"
 
-# reference genome
-export hg19_genome="/home/chenken/db/hg19/hg19.fa"
+
+## ----------------------------- reference genome ---------------------------------- #
+# The path to reference genome fasta files
+export hg19_genome="$HOME/PredPSI-SVR/genome/hg19/hg19.fa"
