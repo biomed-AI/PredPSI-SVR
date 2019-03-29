@@ -1,4 +1,7 @@
 #!/bin/bash
+## Author: Ken Chen
+## Date: 2019-03-23
+set -e
 
 outdir="output"
 buildver="hg19"
@@ -69,19 +72,19 @@ if [ -n "$exon_list" ]; then # known exon
         # exon, transcript
         # touch $working/strand.list
         strand=$(mktemp -p $working strand_XXXXXX)
-        python $TOOL_PATH/src/get_strand.py $transcript_list > $strand
+        $python3 $TOOL_PATH/src/get_strand.py $transcript_list > $strand
         echo "  - exon transcript available ..."
         cut -f 1-5 $input_avinput | paste - $transcript_list $strand $exon_list > $mut_info || exit 1
         rm -f $strand
     else
         # exon only
         echo "  - exon only, finding exon..."
-        python $TOOL_PATH/src/find_transcript_using_exon.py $working/annovar.variant_function $exon_list > $mut_info || exit 1
+        $python3 $TOOL_PATH/src/find_transcript_using_exon.py $working/annovar.variant_function $exon_list > $mut_info || exit 1
     fi
 else
     # only have vcf information
     echo "  - only vcf, finding exon transcript..."
-    python3 $TOOL_PATH/src/get_transcript_exon.py $working/annovar.variant_function  > $mut_info || exit 1
+    $python3 $TOOL_PATH/src/get_transcript_exon.py $working/annovar.variant_function  > $mut_info || exit 1
     # echo "python $TOOL_PATH/src/get_transcript_exon.py $working/annovar.variant_function  > $mut_info"
 fi
 
@@ -101,21 +104,21 @@ fi
 # Extract sequences
 echo "** Extracting sequence...... "
 input_seq_fa="$working/input.seq_fa"
-python $TOOL_PATH/src/mark_seq.py "${mut_info}.valid" > $input_seq_fa || exit 1
+$python3 $TOOL_PATH/src/mark_seq.py "${mut_info}.valid" > $input_seq_fa || exit 1
 echo "    DONE"
 
 ## Prepare features
 echo "** Preparing features"
 # MaxEntScan
 echo "  - MaxEntScan... "
-python $TOOL_PATH/src/maxent_score.py $input_seq_fa > $working/maxent
+$python2 $TOOL_PATH/src/maxent_score.py $input_seq_fa > $working/maxent
 echo "    DONE"
 
 # Exonic Splicing Enhancer
 echo "  - ESE... "
 cd $TOOL_PATH/tools/ese3
 # echo "PWD1: $(pwd), PWD: $cwd"
-python2 $TOOL_PATH/tools/ese3/ese3_mod.py -q $input_seq_fa > $working/ese
+$python2 $TOOL_PATH/tools/ese3/ese3_mod.py -q $input_seq_fa > $working/ese
 cd $cwd
 echo "    DONE"
 # echo "PWD2: $(pwd), PWD: $cwd"
@@ -135,7 +138,7 @@ printf "#tag\t" > $working/tag-features.tsv
 paste $working/maxent $working/spidex $working/ese $PSI | head -n 1 >> $working/tag-features.tsv
 paste $working/maxent $working/spidex $working/ese $PSI | grep -v "#" | awk '{print 0"\t"$0}' | sed 's/na/0/g' >> $working/tag-features.tsv
 
-python3 $TOOL_PATH/src/SVM-make-data.py $working/tag-features.tsv > $working/tag-features.svm
+$python3 $TOOL_PATH/src/SVM-make-data.py $working/tag-features.tsv > $working/tag-features.svm
 echo "    DONE"
 
 #
@@ -153,14 +156,14 @@ else
     model=$TOOL_PATH/models/NOPSI.model
     feature=$TOOL_PATH/models/NOPSI.feature
 fi
-python3 $TOOL_PATH/src/SVM-select.py -f $feature $working/tag-features.scaled.svm > $working/tag-features.scaled.select.svm
+$python3 $TOOL_PATH/src/SVM-select.py -f $feature $working/tag-features.scaled.svm > $working/tag-features.scaled.select.svm
 
 $svm_predict $working/tag-features.scaled.select.svm $model $working/out-prediction.raw
 
 cut -f 1 $working/out-prediction.raw > $working/out.dpsi.raw
 
 printf "#Chrom\tPosition\tID\tRef\tAlt\tdelta-PSI\n" > $working/OUTPUT.dpsi
-python3 $TOOL_PATH/src/SVR-rescale.py -s $TOOL_PATH/models/scale.paras $working/out.dpsi.raw | paste $working/input.valid.vcf - >> $working/OUTPUT.dpsi 
+$python3 $TOOL_PATH/src/SVR-rescale.py -s $TOOL_PATH/models/scale.paras $working/out.dpsi.raw | paste $working/input.valid.vcf - >> $working/OUTPUT.dpsi 
 echo "    DONE"
 
 ## clean
