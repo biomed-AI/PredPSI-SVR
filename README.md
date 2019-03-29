@@ -1,53 +1,79 @@
 # PredPSI-SVR
 
-`PredPSI-SVR` was originally designed to predict ''percent spliced in (PSI, $\Psi$)'' change caused by mutations for [CAGI 5 vex-seq](https://genomeinterp,etation.org/content/vex-seq) challenge). It can be used to predict PSI change (<img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" >delta PSI</img>)
+`PredPSI-SVR` was designed to predict the change of percent spliced in (delta-PSI or <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" />) caused by genetic variants for the [CAGI 5 vex-seq](https://genomeinterpretation.org/content/vex-seq) challenge.  
+- About <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Psi$" /> and <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" />: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037023/
 
 
 ## Prerequisites
-- OS: Linux  
-- Python 2  
-- Python 3 (with `numpy` package installed)
-- Perl
-- ANNOVAR: http://annovar.openbioinformatics.org/en/latest  
-- LIBSVM: https://www.csie.ntu.edu.tw/~cjlin/libsvm
-- Samtools: http://www.htslib.org  
+- Operation system: Unix/Linux  
+- `Perl`  
+- `Python 2`  
+- `Python 3` (with `numpy` package installed)  
+If you have trouble installing `python 3` or `numpy`, you can try `miniconda`  
+    ```shell
+    cd ~/Downloads
+    wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh # pay attention to path of installation, we'll use the default path "$HOME/miniconda3" in this tutorial 
+    $HOME/miniconda/bin/pip install numpy
+    ```
 
-LIBSVM and samtools can be installed with the package manager:  
+Debian/Ubuntu users can install libsvm and samtools through package manager  
+
+    sudo apt install libsvm-tools samtools # Debian/Ubuntu
+
+## Getting started
+### Preparation
+1. Download `PredPSI-SVR`  
+    ```shell
+    git clone https://github.com/chenkenbio/PredPSI-SVR
+    ```
+2. Download `ANNOVAR` (http://annovar.openbioinformatics.org/en/latest/user-guide/download/), `libsvm` (https://www.csie.ntu.edu.tw/~cjlin/libsvm), and `samtools` (http://www.htslib.org/download/). And move them to `PredPSI-SVR/tools`.  
+3. Extract packages:  
+    ```shell
+    cd PredPSI-SVR/tools
+    tar -xzvf annovar.latest.tar.gz
+    tar -xzvf libsvm-3.23.tar.gz
+    tar -xjvf samtools-1.9.tar.bz2
+    cd libsvm-3.23
+    make all
+    cd ../samtools-1.9
+    make all
+    cd ..
+    ```
+
+4. Download basic annotation databases for `ANNOVAR`  
+
+    ```shell
+
+    cd ../tools/annovar        # PredPSI-SVR/tools
+    ./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene ./humandb/
+    cd ..
+    ```
+
+5. Download third-party database [SPIDEX](http://tools.genes.toronto.edu/) from http://www.openbioinformatics.org/annovar/spidex_download_form.php. Move it to `PredPSI-SVR/tools/annovar/humandb/` and decompress with `unzip`:
+```shell
+unzip hg19_spidex.zip # working directory: PredPSI-SVR/tools/annovar/humandb
 ```
-sudo apt install libsvm-tools samtools # Debian/Ubuntu
+
+
+6. Download hg19 genome  
+```shell
+cd PredPSI-SVR/genome
+wget -c http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
+cat *.fa > hg19.fasta
+samtools faidx hg19.fasta
 ```
-
-
-
-## Setup
-1. Download and install LIBSVM, ANNOVAR and samtools  
-2. Data preparation
-    - hg19 reference genome:  
-        ```shell
-        wget -c http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
-        tar -xzvf chromFa.tar.gz
-        cat *.fa > hg19.fasta 
-        samtools faidx hg19.fasta
-        ```
-    - Annovar databases:  
-        `humandb` is the data folder of annovar, the default path is `annovar/humandb`
-        - hg19_ensGene  
-        ```
-        ./annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene ./humandb/
-        ```
-        - SPIDEX  
-        http://www.openbioinformatics.org/annovar/spidex_download_form.php  
-        This database should also be put in `humandb`
-4. Edit paths in `src/init.sh` to match the path to files or programs on your computer.  
 
 ## Usage  
 Example:  
 
 ```shell
+cd PredPSI-SVR/
 ./main.sh example/sample.vcf -p example/sample.psi -o example/outdir
 ```
 Result file is `example/outdir/OUTPUT.dpsi`
 
-## Notes
+## References
 
-`tools/ese3/ese3_mod.py` is modified based a script in [SilVA](http://compbio.cs.toronto.edu/silva/) tool
+`tools/ese3/ese3_mod.py` is modified based a script in [SilVA](http://compbio.cs.toronto.edu/silva/) tool (Paper: https://www.ncbi.nlm.nih.gov/pubmed/23736532)
