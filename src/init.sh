@@ -3,9 +3,9 @@
 
 ## ---------------------------------  python --------------------------------------- #
 ## Both python 2 and python 3 are required, 
-export python3="$HOME/miniconda3/bin/python3"
+#export python3="$HOME/miniconda3/bin/python3"
+export python3="/usr/bin/python3"
 export python2="/usr/bin/python2"
-
 
 ## ---------------------------- ANNOVAR configuration ------------------------------ #
 # You should edit the following variables to match path on your computer
@@ -33,3 +33,22 @@ export svm_predict="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-predict"
 ## ----------------------------- reference genome ---------------------------------- #
 # The path to reference genome fasta files
 export hg19_genome="$HOME/PredPSI-SVR/genome/hg19/hg19.fa"
+
+## ----------------------------- Check command ------------------------------------- #
+>&2 echo ">>== Check commands availablity ==<<"
+py3_version=$($python3 -V 2>&1 | grep -Po '(?<=Python )(.+)')
+if ! [[ "$py3_version" == 3* ]]; then
+    >&2 echo "** Error: Check the variable \"python3\" in src/init.sh"
+    exit 1
+fi
+py2_version=$($python2 -V 2>&1 | grep -Po '(?<=Python )(.+)')
+if ! [[ "$py2_version" == 2* ]]; then
+    >&2 echo "** ERROR: Check the variable \"python2\" in src/init.sh"
+    exit 1
+fi
+command -v $python2 || echo "** ERROR: check variable \"python2\" in src/init.sh" 
+command -v $python3 || echo "** ERROR: check variable \"python3\" in src/init.sh" 
+command -v perl || echo "** ERROR: \"perl\" can not be not found in system PATH"
+command -v $samtools || echo "** ERROR: check variable \"samtools\" in src/init.sh"
+command -v $svm_scale || echo "** ERROR: check variable \"svm_scale\" in src/init.sh" 
+command -v $svm_predict || echo "** ERROR: check variable \"svm_predict\" in src/init.sh"
