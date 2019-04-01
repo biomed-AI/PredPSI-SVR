@@ -17,7 +17,8 @@ If you have trouble installing `python 3` or `numpy`, you can try `miniconda`
     wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     chmod +x Miniconda3-latest-Linux-x86_64.sh
     ./Miniconda3-latest-Linux-x86_64.sh             #pay attention to path of installation, we'll use the default path "$HOME/miniconda3" in this tutorial 
-    $HOME/miniconda/bin/pip install numpy
+    source $HOME/miniconda/bin/activate
+    pip install numpy
     ```
 
 ## Getting started
