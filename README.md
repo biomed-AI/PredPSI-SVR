@@ -62,7 +62,7 @@ unzip hg19_spidex.zip        #working directory: PredPSI-SVR/tools/annovar/human
 cd ~/PredPSI-SVR/genome
 wget -c http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/chromFa.tar.gz
 cat *.fa > hg19.fasta
-samtools faidx hg19.fasta
+$HOME/PredPSI-SVR/tools/samtools-1.9/samtools faidx hg19.fasta
 ```
 
 7. **Finally**, check variables in `src/init.sh`, edit them to fit your system  

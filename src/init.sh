@@ -3,8 +3,7 @@
 
 ## ---------------------------------  python --------------------------------------- #
 ## Both python 2 and python 3 are required, 
-#export python3="$HOME/miniconda3/bin/python3"
-export python3="/usr/bin/python3"
+export python3="$HOME/miniconda3/bin/python3"
 export python2="/usr/bin/python2"
 
 ## ---------------------------- ANNOVAR configuration ------------------------------ #
