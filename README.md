@@ -5,8 +5,9 @@
 
 Send questions and comments to chenkenbio@gmail.com
 
-## Prerequisites
+## Requirements
 - Operation system: Unix/Linux  
+- Memory: 4GB at least
 - `Perl` in your PATH  
 - `Python 2`  
 - `Python 3` (with `numpy` package installed)  
@@ -15,13 +16,14 @@ If you have trouble installing `python 3` or `numpy`, you can try `miniconda`
     cd ~/Downloads
     wget -c https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
     chmod +x Miniconda3-latest-Linux-x86_64.sh
-    ./Miniconda3-latest-Linux-x86_64.sh # pay attention to path of installation, we'll use the default path "$HOME/miniconda3" in this tutorial 
+    ./Miniconda3-latest-Linux-x86_64.sh             #pay attention to path of installation, we'll use the default path "$HOME/miniconda3" in this tutorial 
     $HOME/miniconda/bin/pip install numpy
     ```
 
 ## Getting started
-### Preparation
-We **put PrePSI-SVR in HOME directory** as default   
+### Preparation  
+Note: If you have the following packages installed on your system, you can skip installing them and just edit path in `src/init.sh`   
+**We put PrePSI-SVR in $HOME directory as default**   
 1. Download `PredPSI-SVR`, 
     ```shell
     cd ~
@@ -63,12 +65,17 @@ cat *.fa > hg19.fasta
 samtools faidx hg19.fasta
 ```
 
+7. **Finally**, check variables in `src/init.sh`, edit them to fit your system  
+
 ### Usage  
 Example:  
 
 ```shell
 cd ~/PredPSI-SVR/
+## PredPSI-SVR, with "-p" option
 ./main.sh example/sample.vcf -p example/sample.psi -o example/outdir
+## PredPSI-SVR-noPSI, with out "-p"
+./main.sh example/sample.vcf -o example/outdir
 ```
 Result file is `example/outdir/OUTPUT.dpsi`
 
