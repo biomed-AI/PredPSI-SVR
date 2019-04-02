@@ -31,7 +31,7 @@ export svm_predict="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-predict"
 
 ## ----------------------------- reference genome ---------------------------------- #
 # The path to reference genome fasta files
-export hg19_genome="$HOME/PredPSI-SVR/genome/hg19/hg19.fa"
+export hg19_genome="$HOME/PredPSI-SVR/genome/hg19.fa"
 
 
 ## ----------------------------- Check command ------------------------------------- #
