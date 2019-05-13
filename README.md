@@ -1,7 +1,7 @@
 # PredPSI-SVR
 
-`PredPSI-SVR` was designed to predict the change of percent spliced in (delta-PSI or <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" />) caused by genetic variants for the [CAGI 5 vex-seq](https://genomeinterpretation.org/content/vex-seq) challenge.  
-- About <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Psi$" /> and <img src="https://latex.codecogs.com/svg.latex?\Large&space;$\Delta\Psi$" />: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037023/  
+`PredPSI-SVR` was designed to predict the change of percent spliced in (delta-PSI or <img src="https://latex.codecogs.com/svg.latex?\Delta\Psi" />) caused by genetic variants for the [CAGI 5 vex-seq](https://genomeinterpretation.org/content/vex-seq) challenge.  
+- About <img src="http://latex.codecogs.com/svg.latex?\Psi" /> and <img src="https://latex.codecogs.com/svg.latex?\Delta\Psi" />: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3037023/  
 
 Send questions and comments to chenkenbio@gmail.com
 
