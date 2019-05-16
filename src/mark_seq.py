@@ -3,7 +3,7 @@
 import sys, os
 from utils import mark_seq
 
-if "TOO_PATH" in os.environ:
+if "TOOL_PATH" in os.environ:
     TOOL_PATH = os.environ['TOOL_PATH']
 else:
     TOOL_PATH = "./"
