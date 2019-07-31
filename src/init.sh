@@ -26,7 +26,7 @@ export svm_scale="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-scale"
 export svm_predict="$HOME/PredPSI-SVR/tools/libsvm-3.23/svm-predict"
 
 ## ----------------------------- reference genome ---------------------------------- #
-export hg19_genome="$HOME/PredPSI-SVR/genome/hg19.fa"
+export hg19_genome="$HOME/PredPSI-SVR/genome/hg19.fasta"
 
 
 
