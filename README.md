@@ -80,6 +80,9 @@ cd ~/PredPSI-SVR/
 ```
 Result file is `example/outdir/OUTPUT.dpsi`
 
+### Attention:  
+The `PredPSI-SVR` will filter the VCF file at first to remove variants in intergenic regions or distant to splice sites (more than 200 bp ). Threrefore sometimes you will find that there are fewer variants in `OUTPUT.psi` than your input VCF file.  
+
 ## References
 
 `PredPSI-SVR/tools/ese3/ese3_mod.py` is modified based a script in [SilVA](http://compbio.cs.toronto.edu/silva/) package (Paper: https://www.ncbi.nlm.nih.gov/pubmed/23736532, GitHub: https://github.com/buske/silva)
