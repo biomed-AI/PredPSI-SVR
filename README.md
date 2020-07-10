@@ -86,3 +86,7 @@ The `PredPSI-SVR` will filter the VCF file at first to remove variants in interg
 ## References
 
 `PredPSI-SVR/tools/ese3/ese3_mod.py` is modified based a script in [SilVA](http://compbio.cs.toronto.edu/silva/) package (Paper: https://www.ncbi.nlm.nih.gov/pubmed/23736532, GitHub: https://github.com/buske/silva)
+
+## Citation  
+
+Chen, K., Lu, Y., Zhao, H., & Yang, Y. (2019). Predicting the change of exon splicing caused by genetic variant using support vector regression. Human mutation, 40(9), 1235–1242. https://doi.org/10.1002/humu.23785
